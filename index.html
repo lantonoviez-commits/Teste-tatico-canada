@@ -50,10 +50,13 @@
     }
 
     .brand-logo-img {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid rgba(239, 68, 68, 0.5);
       box-shadow: 0 0 14px rgba(239, 68, 68, 0.35);
+      background: #000;
     }
 
     .brand-titles h2 {
@@ -658,7 +661,7 @@
 </head>
 <body>
 
-  <!-- CABEÇALHO COM O ESCUDO OFICIAL EMBUTIDO -->
+  <!-- TOPO COM O ESCUDO OFICIAL EMBUTIDO -->
   <header class="top-header">
     <div class="brand-group">
       <svg class="brand-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -823,7 +826,7 @@
               <div class="q-instructions">1 Ponto • Marque apenas uma alternativa</div>
               <div class="q-question-text" id="q-title">Carregando pergunta...</div>
 
-              <!-- CARREGADOR DE FOTO REAL -->
+              <!-- FOTO RENDERIZADA DIRETAMENTE -->
               <div class="img-box" id="q-image-container" style="display: none;">
                 <img id="q-img-element" src="" alt="Localização">
               </div>
@@ -890,7 +893,11 @@
       return Math.abs(hash).toString(16).toUpperCase();
     }
 
-    // BANCO DE PERGUNTAS COM OS NOMES EXATOS DOS SEUS ARQUIVOS: 1.jpg e 2.jpg
+    // RESOLVE O CAMINHO RELATIVO AUTOMATICAMENTE SE ESTIVER NO GITHUB PAGES OU LOCAL
+    function getAssetPath(filename) {
+      return new URL(filename, window.location.href).href;
+    }
+
     const questions = [
       {
         title: "1. Qual deve ser a postura de um membro de bíblia dentro da organização?",
@@ -974,7 +981,7 @@
       },
       {
         title: "9. Qual localização é essa ?",
-        image: "2.jpg", // A foto do templo oriental enviada
+        image: getAssetPath("2.jpg"), // Foto real do monumento china
         options: [
           { letter: "A", text: "Monumento China" },
           { letter: "B", text: "Pier" },
@@ -985,7 +992,7 @@
       },
       {
         title: "10. Qual localização é essa?",
-        image: "1.jpg", // A foto do shopping em Vinewood enviada
+        image: getAssetPath("1.jpg"), // Foto real do shopping em Vinewood
         options: [
           { letter: "A", text: "Bombeiro" },
           { letter: "B", text: "Castelinho" },
