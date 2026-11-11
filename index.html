@@ -51,8 +51,8 @@
     }
 
     .brand-logo-img {
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       border-radius: 10px;
       object-fit: cover;
       border: 1px solid rgba(239, 68, 68, 0.5);
@@ -337,7 +337,7 @@
       cursor: not-allowed;
     }
 
-    /* LAYOUT DA PROVA */
+    /* QUIZ ATIVO */
     .quiz-grid {
       display: grid;
       grid-template-columns: 1fr 280px;
@@ -407,7 +407,7 @@
       letter-spacing: 0.02em;
     }
 
-    /* CONTAINER DA FOTO DA QUESTÃO */
+    /* ÁREA DA FOTO */
     .img-box {
       margin-bottom: 24px;
       border-radius: 8px;
@@ -418,6 +418,7 @@
       align-items: center;
       justify-content: center;
       max-height: 380px;
+      min-height: 200px;
     }
 
     .img-box img {
@@ -505,7 +506,7 @@
       background: var(--primary-hover);
     }
 
-    /* SIDEBAR */
+    /* BARRA LATERAL */
     .side-stack {
       display: flex;
       flex-direction: column;
@@ -668,10 +669,13 @@
 </head>
 <body>
 
-  <!-- TOPO COM LOGO OFICIAL CANADÁ ÁREA 38 -->
+  <!-- CABEÇALHO COM LOGO OFICIAL DIRETO DO IMGBB -->
   <header class="top-header">
     <div class="brand-group">
-      <img src="canada_logo.png" alt="Canadá 38" class="brand-logo-img" onerror="this.src='https://lantonoviez-commits.github.io/estagiario/favicon.ico'; this.onerror=null;">
+      <img src="https://i.ibb.co/bMC27Kms/canada-logo.png" 
+           alt="Canadá 38" 
+           class="brand-logo-img" 
+           onerror="this.onerror=null; this.src='canada_logo.png';">
       <div class="brand-titles">
         <h2>Canadá <span>Área 38</span></h2>
         <p>Central de Avaliação Teórica</p>
@@ -701,7 +705,7 @@
         </div>
       </section>
 
-      <!-- TELA: LOGIN DO LÍDER (PADRÃO AO ENTRAR SEM LINK) -->
+      <!-- TELA: LOGIN DO LÍDER (PADRÃO AO ACESSAR SEM LINK) -->
       <section id="view-leader-login" class="admin-card">
         <div class="hazard-strip"></div>
         <div class="admin-body">
@@ -826,7 +830,7 @@
               <div class="q-instructions">1 Ponto • Marque apenas uma alternativa</div>
               <div class="q-question-text" id="q-title">Carregando pergunta...</div>
 
-              <!-- FOTO REAL DA QUESTÃO -->
+              <!-- FOTO REAL HOSPEDADA -->
               <div class="img-box" id="q-image-container" style="display: none;">
                 <img id="q-img-element" src="" alt="Localização">
               </div>
@@ -893,7 +897,7 @@
       return Math.abs(hash).toString(16).toUpperCase();
     }
 
-    // BANCO DE PERGUNTAS COM FOTOS REAIS E OPÇÕES EXATAS
+    // BANCO DE PERGUNTAS COM LINKS DIRETOS PARA AS FOTOS REAIS
     const questions = [
       {
         title: "1. Qual deve ser a postura de um membro de bíblia dentro da organização?",
@@ -977,7 +981,7 @@
       },
       {
         title: "9. Qual localização é essa ?",
-        image: "foto_china.png",
+        image: "https://i.ibb.co/h1WqN3Gg/china-templo.jpg",
         options: [
           { letter: "A", text: "Monumento China" },
           { letter: "B", text: "Pier" },
@@ -988,7 +992,7 @@
       },
       {
         title: "10. Qual localização é essa?",
-        image: "foto_shopping.png",
+        image: "https://i.ibb.co/hJ026k0t/shopping-gta.jpg",
         options: [
           { letter: "A", text: "Bombeiro" },
           { letter: "B", text: "Castelinho" },
@@ -1222,11 +1226,11 @@
       if (acertos >= 6) {
         emoji.textContent = "🏆";
         title.textContent = "Aprovado no Teste Teórico!";
-        msg.textContent = `Parabéns, ${nome}! Você atingiu ${acertos} pontos e obteve aproveitamento superior à nota mínima de 6 pts.`;
+        msg.textContent = `Parabéns, ${nome}! Atingiu ${acertos} pontos e obteve aproveitamento superior à nota mínima de 6 pts.`;
       } else {
         emoji.textContent = "❌";
         title.textContent = "Reprovado no Teste Teórico";
-        msg.textContent = `${nome}, sua pontuação final foi de ${acertos}/10. O mínimo necessário para aprovação é 6 acertos.`;
+        msg.textContent = `${nome}, a sua pontuação final foi de ${acertos}/10. O mínimo necessário para aprovação é 6 acertos.`;
       }
     }
   </script>
