@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canadá Área 38 - Teste Teórico</title>
+  <style>
+    :root {
+      --primary: #dc2626;
+      --primary-hover: #b91c1c;
+      --bg: #0b0607;
+      --card-bg: #140b0d;
+      --card-border: #2a1215;
+      --input-bg: #080304;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .banner-img-card {
+      width: 100%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 20px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 4px 25px rgba(220, 38, 38, 0.2);
+      background: #000;
+    }
+
+    .banner-img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .meta-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      background: var(--input-bg);
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      font-size: 0.85rem;
+    }
+
+    .meta-item span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .meta-item strong {
+      color: #e5e7eb;
+    }
+
+    .question-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .q-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.45;
+      color: #f9fafb;
+    }
+
+    .q-img {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      border: 1px solid var(--card-border);
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-row {
+      display: flex;
+      align-items: center;
+      padding: 12px 14px;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      cursor: pointer;
+      background: var(--input-bg);
+      transition: all 0.15s ease;
+    }
+
+    .option-row:hover {
+      border-color: var(--primary);
+      background: #1f0b0e;
+    }
+
+    .option-row input[type="radio"] {
+      margin-right: 12px;
+      accent-color: var(--primary);
+      width: 18px;
+      height: 18px;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: #2a1215;
+      margin-top: 10px;
+    }
+
+    .btn-secondary:hover {
+      background: #3b191d;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+      outline: none;
+    }
+
+    .input-field:focus {
+      border-color: var(--primary);
+    }
+
+    .alert-screen {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .alert-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .score-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      background: #2a1215;
+      color: var(--primary);
+      font-size: 2.2rem;
+      font-weight: 800;
+      border: 3px solid var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .leader-btn {
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      opacity: 0.2;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .leader-btn:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="banner-img-card">
+      <img src="canada_banner.png" alt="Canadá Área 38" class="banner-img" onerror="this.style.display='none'">
+    </div>
+
+    <!-- TELA 1: BLOQUEIOS (F5 / PARÂMETROS / TENTATIVAS) -->
+    <div id="screen-lock" class="card alert-screen">
+      <div class="alert-icon" id="lock-icon">🔒</div>
+      <h2 id="lock-title" style="margin-bottom: 8px; color: #ef4444;">Acesso Bloqueado</h2>
+      <p id="lock-msg" style="color: var(--text-muted); font-size: 0.95rem;"></p>
+    </div>
+
+    <!-- TELA 2: PROVA ATIVA -->
+    <div id="screen-quiz" style="display: none;">
+      <div class="card">
+        <h1>Avaliação Teórica: Canadá</h1>
+        <div class="meta-box">
+          <div class="meta-item"><span>Candidato</span><strong id="disp-nome">---</strong></div>
+          <div class="meta-item"><span>Passaporte / ID</span><strong id="disp-id">---</strong></div>
+          <div class="meta-item"><span>Tentativa</span><strong id="disp-tentativa">---</strong>/5</div>
+          <div class="meta-item"><span>Status</span><strong style="color: #4ade80;">Autenticado</strong></div>
+        </div>
+      </div>
+
+      <form id="quiz-form">
+        <div id="questions-wrapper"></div>
+        <button type="submit" class="btn" style="margin: 20px 0 40px;">Finalizar e Entregar Teste</button>
+      </form>
+    </div>
+
+    <!-- TELA 3: RESULTADO FINAL -->
+    <div id="screen-result" class="card alert-screen">
+      <div class="score-circle" id="result-score">0/10</div>
+      <h2 style="margin-bottom: 8px;">Resultado Registado</h2>
+      <p id="result-msg" style="color: var(--text-muted); font-size: 0.95rem;"></p>
+    </div>
+
+    <!-- TELA 4: LOGIN DO LÍDER (SENHA OCULTA) -->
+    <div id="screen-leader-login" class="card" style="display: none;">
+      <h1>Painel do Líder - Canadá</h1>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">Introduza a senha mestra para gerar links de acesso:</p>
+      <input type="password" id="leader-password" class="input-field" placeholder="Digite a senha..." autocomplete="off">
+      <button class="btn" onclick="verifyLeader()">Aceder ao Painel</button>
+    </div>
+
+    <!-- TELA 5: GERADOR DE LINKS DO LÍDER -->
+    <div id="screen-leader-panel" class="card" style="display: none;">
+      <h1>Gerador de Link com Chave</h1>
+      <label style="font-size: 0.8rem; color: var(--text-muted);">NOME DO CANDIDATO:</label>
+      <input type="text" id="gen-nome" class="input-field" placeholder="Ex: Yasmim">
+
+      <label style="font-size: 0.8rem; color: var(--text-muted);">PASSAPORTE / ID:</label>
+      <input type="text" id="gen-id" class="input-field" placeholder="Ex: 1232">
+
+      <label style="font-size: 0.8rem; color: var(--text-muted);">TENTATIVA (1 A 5):</label>
+      <input type="number" id="gen-tentativa" class="input-field" min="1" max="5" value="1">
+
+      <button class="btn" onclick="generateCandidateLink()">Gerar Link Autenticado</button>
+
+      <div id="gen-output" style="display: none; margin-top: 18px;">
+        <label style="font-size: 0.8rem; color: #4ade80;">LINK DE ACESSO DO CANDIDATO:</label>
+        <textarea id="gen-link-text" class="input-field" rows="3" style="font-size: 0.8rem;" readonly></textarea>
+        <button class="btn btn-secondary" onclick="copyLink()">Copiar Link</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="leader-btn" onclick="openLeaderLogin()">Painel Líder</button>
+
+  <script>
+    const LEADER_PASS = "canada";
+    const SALT = "CANADA_AREA_38_KEY_AUTH";
+
+    function generateValidationKey(id, tentativa, nome) {
+      const raw = `${id}_${tentativa}_${nome}_${SALT}`;
+      let hash = 0;
+      for (let i = 0; i < raw.length; i++) {
+        const char = raw.charCodeAt(i);
+        hash = (hash << 5) - hash + char;
+        hash |= 0;
+      }
+      return Math.abs(hash).toString(16).toUpperCase();
+    }
+
+    const questions = [
+      {
+        id: 1,
+        title: "1. Qual deve ser a postura de um membro de bíblia dentro da organização?",
+        options: [
+          { letter: "A", text: "Priorizar suas próprias decisões." },
+          { letter: "B", text: "Respeitar a hierarquia da organização e ser exemplo aos novatos." },
+          { letter: "C", text: "Ignorar orientações dos membros mais experientes." },
+          { letter: "D", text: "Tomar decisões sem consultar ninguém." }
+        ],
+        answer: "B"
+      },
+      {
+        id: 2,
+        title: "2. Durante uma ação, quem possui a última palavra sobre as decisões táticas?",
+        options: [
+          { letter: "A", text: "O membro mais antigo da bíblia." },
+          { letter: "B", text: "O membro mais novo da bíblia." },
+          { letter: "C", text: "O líder/tático responsável ou, na ausência dele, o bíblia mais experiente e responsável." },
+          { letter: "D", text: "Qualquer membro que estiver armado." }
+        ],
+        answer: "C"
+      },
+      {
+        id: 3,
+        title: "3. Qual rádio deve ser utilizado ao iniciar uma pista?",
+        options: [
+          { letter: "A", text: "Rádio 121." },
+          { letter: "B", text: "Rádio 122." },
+          { letter: "C", text: "Rádio 120." },
+          { letter: "D", text: "Qualquer rádio disponível." }
+        ],
+        answer: "B"
+      },
+      {
+        id: 4,
+        title: "4. Qual é a quantidade ideal de pessoas no veículo durante uma pista?",
+        options: [
+          { letter: "A", text: "1 pessoa." },
+          { letter: "B", text: "2 pessoas." },
+          { letter: "C", text: "3 pessoas." },
+          { letter: "D", text: "4 pessoas." }
+        ],
+        answer: "B"
+      },
+      {
+        id: 5,
+        title: "5. Ao iniciar uma fuga, o que deve ser feito no rádio?",
+        options: [
+          { letter: "A", text: "Permanecer em silêncio para não chamar atenção." },
+          { letter: "B", text: "Abrir QRR e informar a localização, destino e características da perseguição." },
+          { letter: "C", text: "Utilizar somente o rádio operacional da organização." },
+          { letter: "D", text: "Repetir a mesma informação várias vezes." }
+        ],
+        answer: "B"
+      },
+      {
+        id: 6,
+        title: "6. Qual é a principal função do P1 (motorista)?",
+        options: [
+          { letter: "A", text: "Ser o primeiro a desembarcar e perseguir o alvo." },
+          { letter: "B", text: "Dar voz e cuidar de toda a comunicação." },
+          { letter: "C", text: "Definir a rota de organização." },
+          { letter: "D", text: "Dar a ordem de desembarque, ficar atento a uma possível emboscada e ser o último a chegar quando os alvos estiverem rendidos." }
+        ],
+        answer: "D"
+      },
+      {
+        id: 7,
+        title: "7. Qual é a função do P2?",
+        options: [
+          { letter: "A", text: "Ser o primeiro a chegar e manter a mira no alvo." },
+          { letter: "B", text: "Dar voz, cuidar da comunicação pelo rádio, ser o segundo a chegar e cuidar do perímetro." },
+          { letter: "C", text: "Dirigir o veículo e definir a rota." },
+          { letter: "D", text: "Ser o último a chegar obrigatoriamente." }
+        ],
+        answer: "B"
+      },
+      {
+        id: 8,
+        title: "8. Qual é a função do P3?",
+        options: [
+          { letter: "A", text: "Ser o primeiro a chegar, manter a mira no alvo e ir atrás de outros se necessário." },
+          { letter: "B", text: "Ser o responsável pelo rádio." },
+          { letter: "C", text: "Ser o último a chegar." },
+          { letter: "D", text: "Dar voz e controlar o perímetro." }
+        ],
+        answer: "A"
+      },
+      {
+        id: 9,
+        title: "9. Qual localização é essa?",
+        image: "foto1.png",
+        options: [
+          { letter: "A", text: "Monumento China" },
+          { letter: "B", text: "Píer" },
+          { letter: "C", text: "Banco Central" },
+          { letter: "D", text: "Teatro" }
+        ],
+        answer: "A"
+      },
+      {
+        id: 10,
+        title: "10. Qual localização é essa?",
+        image: "foto2.png",
+        options: [
+          { letter: "A", text: "Barracão" },
+          { letter: "B", text: "Cadeia Velha" },
+          { letter: "C", text: "Garagem" },
+          { letter: "D", text: "Shopping" }
+        ],
+        answer: "D"
+      }
+    ];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const tentativa = parseInt(urlParams.get('tentativa') || "0", 10);
+    const chave = urlParams.get('chave');
+    const nome = urlParams.get('nome');
+
+    function showError(title, message) {
+      document.getElementById('screen-quiz').style.display = 'none';
+      document.getElementById('screen-lock').style.display = 'block';
+      document.getElementById('lock-title').textContent = title;
+      document.getElementById('lock-msg').textContent = message;
+    }
+
+    if (!id && !chave && !nome) {
+      showError("Acesso Não Autorizado", "Nenhum parâmetro de teste detetado. Solicite o link ao seu Líder.");
+    } else {
+      if (isNaN(tentativa) || tentativa < 1 || tentativa > 5) {
+        showError("Tentativa Inválida", "Limite de tentativas excedido (Máximo: 5 tentativas por candidato).");
+      }
+      else if (chave !== generateValidationKey(id, tentativa, nome)) {
+        showError("Chave de Acesso Inválida", "A assinatura de segurança do link não confere. O link não pode ser alterado manualmente.");
+      } else {
+        const lockKey = `canada_quiz_locked_${id}_attempt_${tentativa}`;
+        if (localStorage.getItem(lockKey)) {
+          showError("Tentativa Anulada por Recarga (F5)", "A página foi recarregada ou o teste já foi finalizado. Esta tentativa foi cancelada.");
+        } else {
+          sessionStorage.setItem(lockKey, "active");
+          window.addEventListener('beforeunload', () => {
+            localStorage.setItem(lockKey, "locked");
+          });
+
+          startQuiz();
+        }
+      }
+    }
+
+    function startQuiz() {
+      document.getElementById('screen-quiz').style.display = 'block';
+      document.getElementById('disp-nome').textContent = nome;
+      document.getElementById('disp-id').textContent = id;
+      document.getElementById('disp-tentativa').textContent = tentativa;
+
+      const container = document.getElementById('questions-wrapper');
+      questions.forEach(q => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+
+        let html = `<div class="q-title">${q.title}</div>`;
+        if (q.image) {
+          html += `<img src="${q.image}" class="q-img" onerror="this.style.display='none'">`;
+        }
+
+        html += `<div class="options">`;
+        q.options.forEach(opt => {
+          html += `
+            <label class="option-row">
+              <input type="radio" name="q_${q.id}" value="${opt.letter}" required>
+              <span><strong>${opt.letter})</strong> ${opt.text}</span>
+            </label>
+          `;
+        });
+        html += `</div>`;
+
+        card.innerHTML = html;
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById('quiz-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const lockKey = `canada_quiz_locked_${id}_attempt_${tentativa}`;
+      localStorage.setItem(lockKey, "completed");
+
+      let acertos = 0;
+      const formData = new FormData(this);
+
+      questions.forEach(q => {
+        if (formData.get(`q_${q.id}`) === q.answer) {
+          acertos++;
+        }
+      });
+
+      document.getElementById('screen-quiz').style.display = 'none';
+      document.getElementById('screen-result').style.display = 'block';
+      document.getElementById('result-score').textContent = `${acertos}/10`;
+      document.getElementById('result-msg').textContent =
+        `Obrigado, ${nome}. Avaliação concluída com sucesso na tentativa ${tentativa} de 5.`;
+    });
+
+    function openLeaderLogin() {
+      document.getElementById('screen-lock').style.display = 'none';
+      document.getElementById('screen-quiz').style.display = 'none';
+      document.getElementById('screen-result').style.display = 'none';
+      document.getElementById('screen-leader-login').style.display = 'block';
+    }
+
+    function verifyLeader() {
+      const pass = document.getElementById('leader-password').value;
+      if (pass === LEADER_PASS) {
+        document.getElementById('screen-leader-login').style.display = 'none';
+        document.getElementById('screen-leader-panel').style.display = 'block';
+      } else {
+        alert("Senha incorreta!");
+      }
+    }
+
+    function generateCandidateLink() {
+      const gNome = document.getElementById('gen-nome').value.trim();
+      const gId = document.getElementById('gen-id').value.trim();
+      const gTentativa = document.getElementById('gen-tentativa').value;
+
+      if (!gNome || !gId) {
+        alert("Introduza o Nome e o ID.");
+        return;
+      }
+
+      const generatedKey = generateValidationKey(gId, gTentativa, gNome);
+      const baseUrl = window.location.origin + window.location.pathname;
+      const finalUrl = `${baseUrl}?id=${encodeURIComponent(gId)}&tentativa=${gTentativa}&chave=${generatedKey}&nome=${encodeURIComponent(gNome)}`;
+
+      document.getElementById('gen-link-text').value = finalUrl;
+      document.getElementById('gen-output').style.display = 'block';
+    }
+
+    function copyLink() {
+      const copyText = document.getElementById('gen-link-text');
+      copyText.select();
+      navigator.clipboard.writeText(copyText.value);
+      alert("Link copiado para a área de transferência!");
+    }
+  </script>
+</body>
+</html>
