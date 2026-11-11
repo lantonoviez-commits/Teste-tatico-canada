@@ -45,7 +45,7 @@
       overflow: hidden;
       margin-bottom: 20px;
       border: 1px solid var(--card-border);
-      box-shadow: 0 4px 25px rgba(220, 38, 38, 0.2);
+      box-shadow: 0 4px 25px rgba(220, 38, 38, 0.25);
       background: #000;
     }
 
@@ -219,39 +219,52 @@
       border: 3px solid var(--primary);
       margin-bottom: 16px;
     }
-
-    .leader-btn {
-      position: fixed;
-      bottom: 12px;
-      right: 12px;
-      opacity: 0.2;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      background: none;
-      border: none;
-    }
-
-    .leader-btn:hover {
-      opacity: 1;
-    }
   </style>
 </head>
 <body>
 
   <div class="container">
     <div class="banner-img-card">
-      <img src="canada_banner.png" alt="Canadá Área 38" class="banner-img" onerror="this.style.display='none'">
+      <img src="canada_banner.png" alt="Canadá Área 38" class="banner-img" onerror="this.src='https://lantonoviez-commits.github.io/estagiario/banner.png'; this.onerror=null;">
     </div>
 
-    <!-- TELA 1: BLOQUEIOS (F5 / PARÂMETROS / TENTATIVAS) -->
+    <!-- TELA: LOGIN DO LÍDER (PADRÃO AO ABRIR SEM PARÂMETROS) -->
+    <div id="screen-leader-login" class="card">
+      <h1>Painel do Líder - Canadá</h1>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">Introduza a senha do líder para acessar a geração de testes:</p>
+      <input type="password" id="leader-password" class="input-field" placeholder="Digite a senha..." autocomplete="off">
+      <button class="btn" onclick="verifyLeader()">Acessar Painel</button>
+    </div>
+
+    <!-- TELA: GERADOR DE LINKS DO LÍDER -->
+    <div id="screen-leader-panel" class="card" style="display: none;">
+      <h1>Gerador de Link com Chave</h1>
+      <label style="font-size: 0.8rem; color: var(--text-muted);">NOME DO CANDIDATO:</label>
+      <input type="text" id="gen-nome" class="input-field" placeholder="Ex: Yasmim">
+
+      <label style="font-size: 0.8rem; color: var(--text-muted);">PASSAPORTE / ID:</label>
+      <input type="text" id="gen-id" class="input-field" placeholder="Ex: 1232">
+
+      <label style="font-size: 0.8rem; color: var(--text-muted);">TENTATIVA (1 A 5):</label>
+      <input type="number" id="gen-tentativa" class="input-field" min="1" max="5" value="1">
+
+      <button class="btn" onclick="generateCandidateLink()">Gerar Link Autenticado</button>
+
+      <div id="gen-output" style="display: none; margin-top: 18px;">
+        <label style="font-size: 0.8rem; color: #4ade80;">LINK PRONTO PARA O CANDIDATO:</label>
+        <textarea id="gen-link-text" class="input-field" rows="3" style="font-size: 0.8rem;" readonly></textarea>
+        <button class="btn btn-secondary" onclick="copyLink()">Copiar Link</button>
+      </div>
+    </div>
+
+    <!-- TELA: BLOQUEIOS (F5 / FRAUDE / EXCESSO DE TENTATIVAS) -->
     <div id="screen-lock" class="card alert-screen">
       <div class="alert-icon" id="lock-icon">🔒</div>
       <h2 id="lock-title" style="margin-bottom: 8px; color: #ef4444;">Acesso Bloqueado</h2>
       <p id="lock-msg" style="color: var(--text-muted); font-size: 0.95rem;"></p>
     </div>
 
-    <!-- TELA 2: PROVA ATIVA -->
+    <!-- TELA: PROVA ATIVA -->
     <div id="screen-quiz" style="display: none;">
       <div class="card">
         <h1>Avaliação Teórica: Canadá</h1>
@@ -269,44 +282,13 @@
       </form>
     </div>
 
-    <!-- TELA 3: RESULTADO FINAL -->
+    <!-- TELA: RESULTADO FINAL -->
     <div id="screen-result" class="card alert-screen">
       <div class="score-circle" id="result-score">0/10</div>
       <h2 style="margin-bottom: 8px;">Resultado Registado</h2>
       <p id="result-msg" style="color: var(--text-muted); font-size: 0.95rem;"></p>
     </div>
-
-    <!-- TELA 4: LOGIN DO LÍDER (SENHA OCULTA) -->
-    <div id="screen-leader-login" class="card" style="display: none;">
-      <h1>Painel do Líder - Canadá</h1>
-      <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">Introduza a senha mestra para gerar links de acesso:</p>
-      <input type="password" id="leader-password" class="input-field" placeholder="Digite a senha..." autocomplete="off">
-      <button class="btn" onclick="verifyLeader()">Aceder ao Painel</button>
-    </div>
-
-    <!-- TELA 5: GERADOR DE LINKS DO LÍDER -->
-    <div id="screen-leader-panel" class="card" style="display: none;">
-      <h1>Gerador de Link com Chave</h1>
-      <label style="font-size: 0.8rem; color: var(--text-muted);">NOME DO CANDIDATO:</label>
-      <input type="text" id="gen-nome" class="input-field" placeholder="Ex: Yasmim">
-
-      <label style="font-size: 0.8rem; color: var(--text-muted);">PASSAPORTE / ID:</label>
-      <input type="text" id="gen-id" class="input-field" placeholder="Ex: 1232">
-
-      <label style="font-size: 0.8rem; color: var(--text-muted);">TENTATIVA (1 A 5):</label>
-      <input type="number" id="gen-tentativa" class="input-field" min="1" max="5" value="1">
-
-      <button class="btn" onclick="generateCandidateLink()">Gerar Link Autenticado</button>
-
-      <div id="gen-output" style="display: none; margin-top: 18px;">
-        <label style="font-size: 0.8rem; color: #4ade80;">LINK DE ACESSO DO CANDIDATO:</label>
-        <textarea id="gen-link-text" class="input-field" rows="3" style="font-size: 0.8rem;" readonly></textarea>
-        <button class="btn btn-secondary" onclick="copyLink()">Copiar Link</button>
-      </div>
-    </div>
   </div>
-
-  <button class="leader-btn" onclick="openLeaderLogin()">Painel Líder</button>
 
   <script>
     const LEADER_PASS = "canada";
@@ -445,24 +427,27 @@
     const nome = urlParams.get('nome');
 
     function showError(title, message) {
+      document.getElementById('screen-leader-login').style.display = 'none';
+      document.getElementById('screen-leader-panel').style.display = 'none';
       document.getElementById('screen-quiz').style.display = 'none';
       document.getElementById('screen-lock').style.display = 'block';
       document.getElementById('lock-title').textContent = title;
       document.getElementById('lock-msg').textContent = message;
     }
 
-    if (!id && !chave && !nome) {
-      showError("Acesso Não Autorizado", "Nenhum parâmetro de teste detetado. Solicite o link ao seu Líder.");
-    } else {
+    // Se possui parâmetros, entra no fluxo da prova do aluno
+    if (id || chave || nome) {
+      document.getElementById('screen-leader-login').style.display = 'none';
+
       if (isNaN(tentativa) || tentativa < 1 || tentativa > 5) {
         showError("Tentativa Inválida", "Limite de tentativas excedido (Máximo: 5 tentativas por candidato).");
       }
       else if (chave !== generateValidationKey(id, tentativa, nome)) {
-        showError("Chave de Acesso Inválida", "A assinatura de segurança do link não confere. O link não pode ser alterado manualmente.");
+        showError("Chave de Acesso Inválida", "A assinatura de segurança do link não confere ou foi modificada.");
       } else {
         const lockKey = `canada_quiz_locked_${id}_attempt_${tentativa}`;
         if (localStorage.getItem(lockKey)) {
-          showError("Tentativa Anulada por Recarga (F5)", "A página foi recarregada ou o teste já foi finalizado. Esta tentativa foi cancelada.");
+          showError("Tentativa Anulada por Recarga (F5)", "Detectamos que a página foi recarregada ou já foi finalizada. Esta tentativa foi cancelada.");
         } else {
           sessionStorage.setItem(lockKey, "active");
           window.addEventListener('beforeunload', () => {
@@ -528,13 +513,7 @@
         `Obrigado, ${nome}. Avaliação concluída com sucesso na tentativa ${tentativa} de 5.`;
     });
 
-    function openLeaderLogin() {
-      document.getElementById('screen-lock').style.display = 'none';
-      document.getElementById('screen-quiz').style.display = 'none';
-      document.getElementById('screen-result').style.display = 'none';
-      document.getElementById('screen-leader-login').style.display = 'block';
-    }
-
+    // SISTEMA DO LÍDER
     function verifyLeader() {
       const pass = document.getElementById('leader-password').value;
       if (pass === LEADER_PASS) {
@@ -544,6 +523,13 @@
         alert("Senha incorreta!");
       }
     }
+
+    // Permite dar Enter no campo de senha
+    document.getElementById('leader-password').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        verifyLeader();
+      }
+    });
 
     function generateCandidateLink() {
       const gNome = document.getElementById('gen-nome').value.trim();
