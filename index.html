@@ -33,7 +33,6 @@
       flex-direction: column;
     }
 
-    /* BARRA SUPERIOR */
     .top-header {
       display: flex;
       justify-content: space-between;
@@ -119,7 +118,6 @@
       letter-spacing: 0.05em;
     }
 
-    /* ESTRUTURA PRINCIPAL */
     .main-wrapper {
       flex: 1;
       display: flex;
@@ -157,7 +155,6 @@
       padding: 32px 36px;
     }
 
-    /* FOLHA DE ROSTO */
     .cover-top {
       display: flex;
       justify-content: space-between;
@@ -337,7 +334,6 @@
       cursor: not-allowed;
     }
 
-    /* QUIZ ATIVO */
     .quiz-grid {
       display: grid;
       grid-template-columns: 1fr 280px;
@@ -407,7 +403,6 @@
       letter-spacing: 0.02em;
     }
 
-    /* ÁREA DA FOTO */
     .img-box {
       margin-bottom: 24px;
       border-radius: 8px;
@@ -506,7 +501,6 @@
       background: var(--primary-hover);
     }
 
-    /* BARRA LATERAL */
     .side-stack {
       display: flex;
       flex-direction: column;
@@ -580,7 +574,6 @@
       color: #94a3b8;
     }
 
-    /* PAINEL DO LÍDER */
     .admin-card {
       max-width: 500px;
       margin: 0 auto;
@@ -669,13 +662,12 @@
 </head>
 <body>
 
-  <!-- CABEÇALHO COM LOGO OFICIAL DIRETO DO IMGBB -->
+  <!-- TOPO COM CAMINHO LOCAL SEGURO -->
   <header class="top-header">
     <div class="brand-group">
-      <img src="https://i.ibb.co/bMC27Kms/canada-logo.png" 
+      <img src="./logo.png" 
            alt="Canadá 38" 
-           class="brand-logo-img" 
-           onerror="this.onerror=null; this.src='canada_logo.png';">
+           class="brand-logo-img">
       <div class="brand-titles">
         <h2>Canadá <span>Área 38</span></h2>
         <p>Central de Avaliação Teórica</p>
@@ -719,7 +711,7 @@
         </div>
       </section>
 
-      <!-- TELA: GERADOR DO LÍDER (COPIA DIRETO O LINK) -->
+      <!-- TELA: GERADOR DO LÍDER -->
       <section id="view-leader-panel" class="admin-card" style="display: none;">
         <div class="hazard-strip"></div>
         <div class="admin-body">
@@ -830,7 +822,6 @@
               <div class="q-instructions">1 Ponto • Marque apenas uma alternativa</div>
               <div class="q-question-text" id="q-title">Carregando pergunta...</div>
 
-              <!-- FOTO REAL HOSPEDADA -->
               <div class="img-box" id="q-image-container" style="display: none;">
                 <img id="q-img-element" src="" alt="Localização">
               </div>
@@ -897,7 +888,6 @@
       return Math.abs(hash).toString(16).toUpperCase();
     }
 
-    // BANCO DE PERGUNTAS COM LINKS DIRETOS PARA AS FOTOS REAIS
     const questions = [
       {
         title: "1. Qual deve ser a postura de um membro de bíblia dentro da organização?",
@@ -981,7 +971,7 @@
       },
       {
         title: "9. Qual localização é essa ?",
-        image: "https://i.ibb.co/h1WqN3Gg/china-templo.jpg",
+        image: "./foto9.png",
         options: [
           { letter: "A", text: "Monumento China" },
           { letter: "B", text: "Pier" },
@@ -992,7 +982,7 @@
       },
       {
         title: "10. Qual localização é essa?",
-        image: "https://i.ibb.co/hJ026k0t/shopping-gta.jpg",
+        image: "./foto10.png",
         options: [
           { letter: "A", text: "Bombeiro" },
           { letter: "B", text: "Castelinho" },
