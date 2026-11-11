@@ -50,8 +50,8 @@
     }
 
     .brand-logo-img {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 10px;
       object-fit: cover;
       border: 1px solid rgba(239, 68, 68, 0.5);
@@ -413,7 +413,6 @@
       align-items: center;
       justify-content: center;
       max-height: 380px;
-      min-height: 200px;
     }
 
     .img-box img {
@@ -662,12 +661,18 @@
 </head>
 <body>
 
-  <!-- TOPO COM CAMINHO LOCAL SEGURO -->
+  <!-- TOPO COM LOGO DO ESCUDO EMBUTIDA DIRETAMENTE -->
   <header class="top-header">
     <div class="brand-group">
-      <img src="./logo.png" 
-           alt="Canadá 38" 
-           class="brand-logo-img">
+      <svg class="brand-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" rx="18" fill="#140608"/>
+        <path d="M 50 12 L 82 26 L 82 56 Q 82 82 50 92 Q 18 82 18 56 L 18 26 Z" fill="#2d080c" stroke="#ef4444" stroke-width="3"/>
+        <path d="M 50 20 L 76 31 L 76 54 Q 76 75 50 84 Q 24 75 24 54 L 24 31 Z" fill="#450a0a"/>
+        <!-- Folha Canadá estilizada -->
+        <path d="M 50 32 L 53 42 L 61 40 L 56 46 L 63 51 L 55 52 L 57 60 L 50 56 L 43 60 L 45 52 L 37 51 L 44 46 L 39 40 L 47 42 Z" fill="#ef4444"/>
+        <text x="50" y="70" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="900" font-family="sans-serif">CANADA</text>
+        <text x="50" y="80" text-anchor="middle" fill="#ef4444" font-size="9" font-weight="900" font-family="sans-serif">38</text>
+      </svg>
       <div class="brand-titles">
         <h2>Canadá <span>Área 38</span></h2>
         <p>Central de Avaliação Teórica</p>
@@ -822,9 +827,7 @@
               <div class="q-instructions">1 Ponto • Marque apenas uma alternativa</div>
               <div class="q-question-text" id="q-title">Carregando pergunta...</div>
 
-              <div class="img-box" id="q-image-container" style="display: none;">
-                <img id="q-img-element" src="" alt="Localização">
-              </div>
+              <div class="img-box" id="q-image-container" style="display: none;"></div>
 
               <div class="options-list" id="q-options-container"></div>
 
@@ -887,6 +890,82 @@
       }
       return Math.abs(hash).toString(16).toUpperCase();
     }
+
+    // ILUSTRAÇÃO VETORIAL DA FOTO 9 (PAGODE / MONUMENTO ORIENTAL)
+    const REAL_PHOTO_CHINA = `
+      <svg viewBox="0 0 600 380" width="100%" height="340" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#7393b3"/>
+            <stop offset="60%" stop-color="#b6cde2"/>
+            <stop offset="100%" stop-color="#dbe8f4"/>
+          </linearGradient>
+        </defs>
+        <!-- Céu -->
+        <rect width="600" height="380" fill="url(#skyGrad)"/>
+        <!-- Skyline ao fundo -->
+        <rect x="20" y="220" width="45" height="50" fill="#8b9ba8"/>
+        <rect x="500" y="215" width="60" height="55" fill="#8b9ba8"/>
+        <!-- Palmeira esquerda -->
+        <path d="M 150 280 Q 148 200 155 170" stroke="#5d4037" stroke-width="6" fill="none"/>
+        <circle cx="155" cy="165" r="24" fill="#2d5a27"/>
+        <!-- Grama e estrada -->
+        <path d="M 0 260 Q 300 240 600 260 L 600 380 L 0 380 Z" fill="#4d6e32"/>
+        <path d="M 0 280 L 600 270 L 600 310 L 0 320 Z" fill="#6c757d"/>
+        <!-- Base de pedra elevada -->
+        <polygon points="170,300 430,300 470,360 130,360" fill="#7d6756"/>
+        <rect x="220" y="280" width="160" height="25" fill="#8d735f" stroke="#4a3728" stroke-width="2"/>
+        <!-- Degraus / Rampa frontal -->
+        <polygon points="210,310 270,310 240,365 170,365" fill="#9e8b79"/>
+        <!-- Colunas de sustentação vermelhas -->
+        <rect x="240" y="195" width="16" height="90" fill="#7f1d1d"/>
+        <rect x="275" y="195" width="14" height="85" fill="#991b1b"/>
+        <rect x="315" y="195" width="14" height="85" fill="#991b1b"/>
+        <rect x="348" y="195" width="16" height="90" fill="#7f1d1d"/>
+        <!-- Teto do Pagode estilizado (pontas curvadas para cima) -->
+        <path d="M 180 185 Q 300 160 420 185 L 435 198 L 165 198 Z" fill="#1e293b"/>
+        <path d="M 160 185 Q 190 175 220 170 Q 300 145 380 170 Q 410 175 440 185 L 415 160 Q 300 135 185 160 Z" fill="#2d3748" stroke="#0f172a" stroke-width="2"/>
+        <!-- Ponta superior do monumento -->
+        <polygon points="285,145 315,145 300,110" fill="#1e293b"/>
+        <rect x="296" y="100" width="8" height="15" fill="#d97706"/>
+      </svg>
+    `;
+
+    // ILUSTRAÇÃO VETORIAL DA FOTO 10 (SHOPPING / VINEWOOD)
+    const REAL_PHOTO_SHOPPING = `
+      <svg viewBox="0 0 600 380" width="100%" height="340" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="skyCity" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#4a90e2"/>
+            <stop offset="100%" stop-color="#b8d5f2"/>
+          </linearGradient>
+        </defs>
+        <!-- Céu -->
+        <rect width="600" height="380" fill="url(#skyCity)"/>
+        <!-- Prédio moderno ao fundo direito -->
+        <rect x="500" y="130" width="90" height="180" fill="#2c5282"/>
+        <!-- Prédio do Shopping Curvo (Vinewood) -->
+        <path d="M 90 280 L 90 130 Q 330 65 510 130 L 510 280 Z" fill="#e2c8a2"/>
+        <path d="M 120 280 L 120 145 Q 330 90 480 145 L 480 280 Z" fill="#d6b98d"/>
+        <!-- Faixas horizontais de estacionamento / design -->
+        <line x1="120" y1="180" x2="300" y2="180" stroke="#715b45" stroke-width="6"/>
+        <line x1="120" y1="205" x2="300" y2="205" stroke="#715b45" stroke-width="6"/>
+        <line x1="120" y1="230" x2="300" y2="230" stroke="#715b45" stroke-width="6"/>
+        <!-- Letreiro Vinewood / Entrada Circular -->
+        <path d="M 270 280 L 270 170 Q 370 155 420 170 L 420 280 Z" fill="#2d3748"/>
+        <rect x="290" y="210" width="110" height="30" rx="4" fill="#1a202c"/>
+        <text x="345" y="230" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="900" font-family="sans-serif">VINEWOOD</text>
+        <!-- Outdoor superior -->
+        <rect x="260" y="105" width="95" height="50" rx="4" fill="#ecc94b" stroke="#b7791f" stroke-width="2"/>
+        <circle cx="285" cy="130" r="14" fill="#3182ce"/>
+        <circle cx="330" cy="130" r="14" fill="#3182ce"/>
+        <!-- Rua e Cruzamento -->
+        <polygon points="0,320 600,280 600,380 0,380" fill="#4a5568"/>
+        <!-- Caminhão e postes -->
+        <rect x="40" y="260" width="70" height="40" rx="3" fill="#cbd5e0"/>
+        <rect x="95" y="270" width="30" height="30" fill="#ffffff"/>
+      </svg>
+    `;
 
     const questions = [
       {
@@ -971,7 +1050,7 @@
       },
       {
         title: "9. Qual localização é essa ?",
-        image: "./foto9.png",
+        customHtml: REAL_PHOTO_CHINA,
         options: [
           { letter: "A", text: "Monumento China" },
           { letter: "B", text: "Pier" },
@@ -982,7 +1061,7 @@
       },
       {
         title: "10. Qual localização é essa?",
-        image: "./foto10.png",
+        customHtml: REAL_PHOTO_SHOPPING,
         options: [
           { letter: "A", text: "Bombeiro" },
           { letter: "B", text: "Castelinho" },
@@ -1129,12 +1208,12 @@
       document.getElementById('q-title').textContent = q.title;
 
       const imgContainer = document.getElementById('q-image-container');
-      const imgElement = document.getElementById('q-img-element');
       
-      if (q.image) {
-        imgElement.src = q.image;
+      if (q.customHtml) {
+        imgContainer.innerHTML = q.customHtml;
         imgContainer.style.display = 'flex';
       } else {
+        imgContainer.innerHTML = '';
         imgContainer.style.display = 'none';
       }
 
