@@ -53,10 +53,7 @@
       width: 46px;
       height: 46px;
       border-radius: 10px;
-      object-fit: cover;
-      border: 1px solid rgba(239, 68, 68, 0.5);
       box-shadow: 0 0 14px rgba(239, 68, 68, 0.35);
-      background: #000;
     }
 
     .brand-titles h2 {
@@ -412,14 +409,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      max-height: 400px;
-      min-height: 180px;
+      max-height: 420px;
     }
 
     .img-box img {
       width: 100%;
       height: auto;
-      max-height: 400px;
+      max-height: 420px;
       object-fit: contain;
       display: block;
     }
@@ -662,13 +658,17 @@
 </head>
 <body>
 
-  <!-- TOPO COM CAMINHO PARA O LOGO -->
+  <!-- CABEÇALHO COM O ESCUDO OFICIAL EMBUTIDO -->
   <header class="top-header">
     <div class="brand-group">
-      <img src="img/logo.png" 
-           alt="Canadá 38" 
-           class="brand-logo-img"
-           onerror="this.src='logo.png'; this.onerror=null;">
+      <svg class="brand-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" rx="14" fill="#0d0405"/>
+        <path d="M 50 10 L 84 25 L 84 55 Q 84 82 50 93 Q 16 82 16 55 L 16 25 Z" fill="#200609" stroke="#ef4444" stroke-width="2.5"/>
+        <path d="M 50 17 L 78 29 L 78 54 Q 78 76 50 86 Q 22 76 22 54 L 22 29 Z" fill="#38090d"/>
+        <path d="M 50 28 L 54 39 L 63 37 L 57 44 L 65 49 L 56 50 L 58 59 L 50 54 L 42 59 L 44 50 L 35 49 L 43 44 L 37 37 L 46 39 Z" fill="#ef4444"/>
+        <text x="50" y="68" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="900">CANADA</text>
+        <text x="50" y="78" text-anchor="middle" fill="#ef4444" font-size="9" font-weight="900">38</text>
+      </svg>
       <div class="brand-titles">
         <h2>Canadá <span>Área 38</span></h2>
         <p>Central de Avaliação Teórica</p>
@@ -823,7 +823,7 @@
               <div class="q-instructions">1 Ponto • Marque apenas uma alternativa</div>
               <div class="q-question-text" id="q-title">Carregando pergunta...</div>
 
-              <!-- IMAGEM REAL DA QUESTÃO -->
+              <!-- CARREGADOR DE FOTO REAL -->
               <div class="img-box" id="q-image-container" style="display: none;">
                 <img id="q-img-element" src="" alt="Localização">
               </div>
@@ -890,6 +890,7 @@
       return Math.abs(hash).toString(16).toUpperCase();
     }
 
+    // BANCO DE PERGUNTAS COM OS NOMES EXATOS DOS SEUS ARQUIVOS: 1.jpg e 2.jpg
     const questions = [
       {
         title: "1. Qual deve ser a postura de um membro de bíblia dentro da organização?",
@@ -973,7 +974,7 @@
       },
       {
         title: "9. Qual localização é essa ?",
-        image: "img/china.jpg",
+        image: "2.jpg", // A foto do templo oriental enviada
         options: [
           { letter: "A", text: "Monumento China" },
           { letter: "B", text: "Pier" },
@@ -984,7 +985,7 @@
       },
       {
         title: "10. Qual localização é essa?",
-        image: "img/shopping.jpg",
+        image: "1.jpg", // A foto do shopping em Vinewood enviada
         options: [
           { letter: "A", text: "Bombeiro" },
           { letter: "B", text: "Castelinho" },
