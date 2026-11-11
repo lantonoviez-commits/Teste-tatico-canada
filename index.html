@@ -33,13 +33,14 @@
       flex-direction: column;
     }
 
+    /* BARRA SUPERIOR */
     .top-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 36px;
+      padding: 14px 36px;
       border-bottom: 1px solid var(--card-border);
-      background: rgba(17, 20, 29, 0.7);
+      background: rgba(17, 20, 29, 0.85);
       backdrop-filter: blur(8px);
     }
 
@@ -49,21 +50,19 @@
       gap: 14px;
     }
 
-    .brand-logo {
-      width: 44px;
-      height: 44px;
-      background: radial-gradient(circle, #ef4444 0%, #7f1d1d 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
-      font-size: 20px;
+    .brand-logo-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      box-shadow: 0 0 14px rgba(239, 68, 68, 0.35);
+      background: #000;
     }
 
     .brand-titles h2 {
-      font-size: 1rem;
-      font-weight: 800;
+      font-size: 1.05rem;
+      font-weight: 900;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: #fff;
@@ -76,7 +75,7 @@
     .brand-titles p {
       font-size: 0.72rem;
       color: var(--text-muted);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
@@ -120,12 +119,13 @@
       letter-spacing: 0.05em;
     }
 
+    /* ESTRUTURA PRINCIPAL */
     .main-wrapper {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 30px 20px 60px;
+      padding: 24px 20px 60px;
     }
 
     .container {
@@ -157,6 +157,7 @@
       padding: 32px 36px;
     }
 
+    /* FOLHA DE ROSTO */
     .cover-top {
       display: flex;
       justify-content: space-between;
@@ -336,6 +337,7 @@
       cursor: not-allowed;
     }
 
+    /* LAYOUT DA PROVA */
     .quiz-grid {
       display: grid;
       grid-template-columns: 1fr 280px;
@@ -405,6 +407,7 @@
       letter-spacing: 0.02em;
     }
 
+    /* CONTAINER DA FOTO DA QUESTÃO */
     .img-box {
       margin-bottom: 24px;
       border-radius: 8px;
@@ -414,14 +417,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      max-height: 320px;
+      max-height: 380px;
     }
 
-    .img-box img, .img-box svg {
+    .img-box img {
       width: 100%;
       height: auto;
-      max-height: 320px;
-      object-fit: cover;
+      max-height: 380px;
+      object-fit: contain;
+      display: block;
     }
 
     .options-list {
@@ -501,6 +505,7 @@
       background: var(--primary-hover);
     }
 
+    /* SIDEBAR */
     .side-stack {
       display: flex;
       flex-direction: column;
@@ -574,6 +579,7 @@
       color: #94a3b8;
     }
 
+    /* PAINEL DO LÍDER */
     .admin-card {
       max-width: 500px;
       margin: 0 auto;
@@ -662,9 +668,10 @@
 </head>
 <body>
 
+  <!-- TOPO COM LOGO OFICIAL CANADÁ ÁREA 38 -->
   <header class="top-header">
     <div class="brand-group">
-      <div class="brand-logo">🍁</div>
+      <img src="canada_logo.png" alt="Canadá 38" class="brand-logo-img" onerror="this.src='https://lantonoviez-commits.github.io/estagiario/favicon.ico'; this.onerror=null;">
       <div class="brand-titles">
         <h2>Canadá <span>Área 38</span></h2>
         <p>Central de Avaliação Teórica</p>
@@ -694,7 +701,7 @@
         </div>
       </section>
 
-      <!-- TELA: LOGIN DO LÍDER (PADRÃO AO ACESSAR SEM LINK) -->
+      <!-- TELA: LOGIN DO LÍDER (PADRÃO AO ENTRAR SEM LINK) -->
       <section id="view-leader-login" class="admin-card">
         <div class="hazard-strip"></div>
         <div class="admin-body">
@@ -713,7 +720,7 @@
         <div class="hazard-strip"></div>
         <div class="admin-body">
           <h2>Gerador de Teste</h2>
-          <p>Preencha os dados. O link é copiado direto para a sua área de transferência ao clicar:</p>
+          <p>Preencha os dados do candidato. O link será gerado e copiado automaticamente:</p>
           
           <div class="input-row">
             <label>Nome do Candidato</label>
@@ -738,7 +745,7 @@
         </div>
       </section>
 
-      <!-- TELA: FOLHA DE ROSTO COM NOTA MÍNIMA 6 PTS -->
+      <!-- TELA: FOLHA DE ROSTO -->
       <section id="view-cover" class="hazard-card" style="display: none;">
         <div class="hazard-strip"></div>
         <div class="card-body">
@@ -819,7 +826,10 @@
               <div class="q-instructions">1 Ponto • Marque apenas uma alternativa</div>
               <div class="q-question-text" id="q-title">Carregando pergunta...</div>
 
-              <div class="img-box" id="q-image-container" style="display: none;"></div>
+              <!-- FOTO REAL DA QUESTÃO -->
+              <div class="img-box" id="q-image-container" style="display: none;">
+                <img id="q-img-element" src="" alt="Localização">
+              </div>
 
               <div class="options-list" id="q-options-container"></div>
 
@@ -883,31 +893,7 @@
       return Math.abs(hash).toString(16).toUpperCase();
     }
 
-    const SVG_CHINA = `
-      <svg viewBox="0 0 400 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
-        <rect width="400" height="220" fill="#2b3b4f"/>
-        <circle cx="340" cy="50" r="30" fill="#fde047" opacity="0.8"/>
-        <path d="M0 170 Q 200 150 400 170 L 400 220 L 0 220 Z" fill="#14532d"/>
-        <path d="M 120 70 Q 200 40 280 70 L 260 85 L 140 85 Z" fill="#b91c1c"/>
-        <path d="M 140 85 L 260 85 L 250 100 L 150 100 Z" fill="#991b1b"/>
-        <rect x="150" y="100" width="12" height="70" fill="#7f1d1d"/>
-        <rect x="180" y="100" width="12" height="70" fill="#7f1d1d"/>
-        <rect x="210" y="100" width="12" height="70" fill="#7f1d1d"/>
-        <rect x="240" y="100" width="12" height="70" fill="#7f1d1d"/>
-        <text x="200" y="205" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">LOCALIZAÇÃO #09: PAVILHÃO / MONUMENTO</text>
-      </svg>`;
-
-    const SVG_SHOPPING = `
-      <svg viewBox="0 0 400 220" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
-        <rect width="400" height="220" fill="#1e293b"/>
-        <path d="M 50 190 L 50 80 Q 200 50 350 80 L 350 190 Z" fill="#d97706"/>
-        <path d="M 70 190 L 70 95 Q 200 70 330 95 L 330 190 Z" fill="#b45309"/>
-        <rect x="150" y="110" width="100" height="40" fill="#78350f" rx="6"/>
-        <text x="200" y="135" text-anchor="middle" fill="#fef08a" font-size="14" font-weight="900" letter-spacing="2">SHOPPING</text>
-        <rect x="0" y="190" width="400" height="30" fill="#0f172a"/>
-        <text x="200" y="210" text-anchor="middle" fill="#94a3b8" font-size="11">LOCALIZAÇÃO #10: FACHADA COMERCIAL</text>
-      </svg>`;
-
+    // BANCO DE PERGUNTAS COM FOTOS REAIS E OPÇÕES EXATAS
     const questions = [
       {
         title: "1. Qual deve ser a postura de um membro de bíblia dentro da organização?",
@@ -990,23 +976,23 @@
         answer: "A"
       },
       {
-        title: "9. Qual localização é essa?",
-        svg: SVG_CHINA,
+        title: "9. Qual localização é essa ?",
+        image: "foto_china.png",
         options: [
           { letter: "A", text: "Monumento China" },
-          { letter: "B", text: "Píer" },
+          { letter: "B", text: "Pier" },
           { letter: "C", text: "Banco Central" },
-          { letter: "D", text: "Teatro" }
+          { letter: "D", text: "teatro" }
         ],
         answer: "A"
       },
       {
         title: "10. Qual localização é essa?",
-        svg: SVG_SHOPPING,
+        image: "foto_shopping.png",
         options: [
-          { letter: "A", text: "Barracão" },
-          { letter: "B", text: "Cadeia Velha" },
-          { letter: "C", text: "Garagem" },
+          { letter: "A", text: "Bombeiro" },
+          { letter: "B", text: "Castelinho" },
+          { letter: "C", text: "Aeroporto" },
           { letter: "D", text: "Shopping" }
         ],
         answer: "D"
@@ -1041,7 +1027,7 @@
       document.getElementById('view-leader-login').style.display = 'none';
 
       if (isNaN(tentativa) || tentativa < 1 || tentativa > 5) {
-        lockView("Limite de Tentativas Excedido", "Você atingiu o limite de 5 tentativas ou a tentativa fornecida é inválida.");
+        lockView("Limite de Tentativas Excedido", "Você atingiu o limite de 5 tentativas ou o valor informado é inválido.");
       } else if (chave !== makeKey(id, tentativa, nome)) {
         lockView("Chave Corrompida", "A assinatura de validação deste link é inválida. Solicite um novo link ao líder.");
       } else {
@@ -1149,11 +1135,12 @@
       document.getElementById('q-title').textContent = q.title;
 
       const imgContainer = document.getElementById('q-image-container');
-      if (q.svg) {
-        imgContainer.innerHTML = q.svg;
+      const imgElement = document.getElementById('q-img-element');
+      
+      if (q.image) {
+        imgElement.src = q.image;
         imgContainer.style.display = 'flex';
       } else {
-        imgContainer.innerHTML = '';
         imgContainer.style.display = 'none';
       }
 
@@ -1232,7 +1219,6 @@
       const title = document.getElementById('result-status-title');
       const msg = document.getElementById('result-feedback');
 
-      // CRITÉRIO DE APROVAÇÃO: MÍNIMO 6 PONTOS
       if (acertos >= 6) {
         emoji.textContent = "🏆";
         title.textContent = "Aprovado no Teste Teórico!";
