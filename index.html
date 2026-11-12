@@ -413,9 +413,8 @@
       font-weight: 800;
       color: #fff;
       line-height: 1.45;
-      text-transform: uppercase;
       margin-bottom: 24px;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.01em;
     }
 
     .img-box {
@@ -427,13 +426,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      max-height: 420px;
+      max-height: 440px;
     }
 
     .img-box img {
       width: 100%;
       height: auto;
-      max-height: 420px;
+      max-height: 440px;
       object-fit: contain;
       display: block;
     }
@@ -455,7 +454,7 @@
       cursor: pointer;
       transition: all 0.15s ease;
       color: #cbd5e1;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 600;
       user-select: none;
     }
@@ -623,7 +622,7 @@
 </head>
 <body>
 
-  <!-- TOPO COM O ESCUDO OFICIAL EMBUTIDO -->
+  <!-- TOPO COM O ESCUDO OFICIAL -->
   <header class="top-header">
     <div class="brand-group">
       <svg class="brand-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -653,7 +652,7 @@
   <main class="main-wrapper">
     <div class="container">
 
-      <!-- TELA: BLOQUEIO / FRAUDE / F5 -->
+      <!-- TELA: BLOQUEIO / TENTATIVAS EXCEDIDAS -->
       <section id="view-lock" class="hazard-card" style="display: none;">
         <div class="hazard-strip"></div>
         <div class="card-body alert-box">
@@ -674,7 +673,7 @@
             <div class="cover-tag">Folha de Rosto • Prova Oficial</div>
             <div class="badge-valid" id="cover-badge-tentativa">Acesso Direto • Máx. 5 Tentativas</div>
           </div>
-          <h1 class="cover-title">Prova Teórica <span>Canadá</span></h1>
+          <h1 class="cover-title">Teste Teórico <span>Canada</span></h1>
 
           <div id="reset-banner" style="display: none; background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.4); color: #4ade80; padding: 12px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; margin-bottom: 18px;">
             ✅ Tentativas resetadas pela Liderança! Preencha seu Nome e Passaporte / ID abaixo para iniciar.
@@ -722,7 +721,7 @@
             </div>
             <div class="rule-item">
               <div class="rule-badge">3</div>
-              <div><strong style="color: var(--primary);">⚠ NÃO recarregue a página (F5)</strong> durante o teste, caso contrário a tentativa atual será anulada e enviada como reprovada ao Discord.</div>
+              <div><strong style="color: var(--primary);">⚠ NÃO recarregue a página (F5)</strong> durante o teste, caso contrário a tentativa atual será anulada.</div>
             </div>
           </div>
 
@@ -819,34 +818,54 @@
       return `${id}-${tentativa}-${acertos}-${Math.abs(hash).toString(16).toUpperCase()}`;
     }
 
-    // Questões oficiais (Rádio 131 geral / 132 pista e ação + 2.jpg China na 9 e 1.jpg Shopping na 10)
+    // Gera todas as possíveis URLs da imagem no repositório GitHub (main/master, jpg/png/jpeg)
+    function buildImageCandidates(num) {
+      const repoBaseMain = "https://raw.githubusercontent.com/lantonoviez-commits/Teste-tatico-canada/main";
+      const repoBaseMaster = "https://raw.githubusercontent.com/lantonoviez-commits/Teste-tatico-canada/master";
+      return [
+        `./${num}.jpg`,
+        `./${num}.png`,
+        `./${num}.jpeg`,
+        `./${num}.JPG`,
+        `./${num}.PNG`,
+        `${repoBaseMain}/${num}.jpg`,
+        `${repoBaseMain}/${num}.png`,
+        `${repoBaseMain}/${num}.jpeg`,
+        `${repoBaseMain}/${num}.JPG`,
+        `${repoBaseMain}/${num}.PNG`,
+        `${repoBaseMaster}/${num}.jpg`,
+        `${repoBaseMaster}/${num}.png`
+      ];
+    }
+
+    // Perguntas 100% idênticas aos prints oficiais (1 = Shopping, 2 = Monumento China)
     const questions = [
       {
-        title: "1. Qual deve ser a postura de um membro de bíblia dentro da organização?",
+        title: "1. Qual deve ser a postura de um membro do tático dentro da organização?",
         options: [
           { letter: "A", text: "Priorizar suas próprias decisões." },
-          { letter: "B", text: "Respeitar a hierarquia da organização e ser exemplo aos novatos." },
+          { letter: "B", text: "Respeitar e obedecer à liderança do tático e da organização e ser exemplo aos novatos." },
           { letter: "C", text: "Ignorar orientações dos membros mais experientes." },
           { letter: "D", text: "Tomar decisões sem consultar ninguém." }
         ],
         answer: "B"
       },
       {
-        title: "2. Durante uma ação, quem possui a última palavra sobre as decisões táticas?",
+        title: "2. Durante uma ação, quem possui a última palavra sobre as decisões do tático?",
         options: [
-          { letter: "A", text: "O membro mais antigo da bíblia." },
-          { letter: "B", text: "O membro mais novo da bíblia." },
-          { letter: "C", text: "O líder/tático responsável ou, na ausência dele, o bíblia mais experiente e responsável." },
+          { letter: "A", text: "O membro mais antigo do tático." },
+          { letter: "B", text: "O membro mais novo do tático." },
+          { letter: "C", text: "O líder tático responsável ou, na ausência dele, o tático mais experiente e responsável." },
           { letter: "D", text: "Qualquer membro que estiver armado." }
         ],
         answer: "C"
       },
       {
-        title: "3. Qual rádio deve ser utilizado ao iniciar uma pista ou ação (sabendo que 131 é o rádio geral)?",
+        title: "3. Qual rádio deve ser utilizado ao iniciar uma pista?",
         options: [
           { letter: "A", text: "Rádio 131." },
           { letter: "B", text: "Rádio 132." },
-          { letter: "C", text: "Rádio 122." },
+          { letter: "C", text: "Rádio 130." },
           { letter: "D", text: "Qualquer rádio disponível." }
         ],
         answer: "B"
@@ -862,11 +881,11 @@
         answer: "B"
       },
       {
-        title: "5. Ao iniciar uma fuga, o que deve ser feito no rádio?",
+        title: "5. Ao iniciar uma fuga, o que deve ser feito na rádio?",
         options: [
           { letter: "A", text: "Permanecer em silêncio para não chamar atenção." },
-          { letter: "B", text: "Abrir QRR e informar a localização, destino e características da perseguição." },
-          { letter: "C", text: "Utilizar somente o rádio operacional da organização." },
+          { letter: "B", text: "Pedir QRR e informar a localização, destino e características da perseguição." },
+          { letter: "C", text: "Utilizar somente a rádio operacional da organização." },
           { letter: "D", text: "Repetir a mesma informação várias vezes." }
         ],
         answer: "B"
@@ -876,47 +895,45 @@
         options: [
           { letter: "A", text: "Ser o primeiro a desembarcar e perseguir o alvo." },
           { letter: "B", text: "Dar voz e cuidar de toda a comunicação." },
-          { letter: "C", text: "Definir a rota de organização." },
-          { letter: "D", text: "Dar a ordem de desembarque, ficar atento a uma possível emboscada e ser o último a chegar quando os alvos estiverem rendidos." }
+          { letter: "C", text: "Definir a rota da organização." },
+          { letter: "D", text: "Dar a ordem de desembarque, ficar atento a uma possível arrancada e ser o último a dropar quando os alvos estiverem rendidos." }
         ],
         answer: "D"
       },
       {
         title: "7. Qual é a função do P2?",
         options: [
-          { letter: "A", text: "Ser o primeiro a chegar e manter a mira no alvo." },
-          { letter: "B", text: "Dar voz, cuidar da comunicação pelo rádio, ser o segundo a chegar e cuidar do perímetro." },
+          { letter: "A", text: "Ser o primeiro a dropar e manter a mira no alvo." },
+          { letter: "B", text: "Dar voz, cuidar da comunicação pelo rádio, ser o segundo a dropar e cuidar do perímetro." },
           { letter: "C", text: "Dirigir o veículo e definir a rota." },
-          { letter: "D", text: "Ser o último a chegar obrigatoriamente." }
+          { letter: "D", text: "Ser o último a dropar obrigatoriamente." }
         ],
         answer: "B"
       },
       {
         title: "8. Qual é a função do P3?",
         options: [
-          { letter: "A", text: "Ser o primeiro a chegar, manter a mira no alvo e ir atrás de outros se necessário." },
+          { letter: "A", text: "Ser o primeiro a dropar, manter a mira no alvo e ir atrás do alvo a pé caso necessário." },
           { letter: "B", text: "Ser o responsável pelo rádio." },
-          { letter: "C", text: "Ser o último a chegar." },
+          { letter: "C", text: "Ser o último a dropar." },
           { letter: "D", text: "Dar voz e controlar o perímetro." }
         ],
         answer: "A"
       },
       {
         title: "9. Qual localização é essa ?",
-        image: "./2.jpg",
-        fallbackImage: "https://raw.githubusercontent.com/lantonoviez-commits/Teste-tatico-canada/main/2.jpg",
+        imageNum: "2",
         options: [
           { letter: "A", text: "Monumento China" },
           { letter: "B", text: "Pier" },
           { letter: "C", text: "Banco Central" },
-          { letter: "D", text: "Teatro" }
+          { letter: "D", text: "teatro" }
         ],
         answer: "A"
       },
       {
         title: "10. Qual localização é essa?",
-        image: "./1.jpg",
-        fallbackImage: "https://raw.githubusercontent.com/lantonoviez-commits/Teste-tatico-canada/main/1.jpg",
+        imageNum: "1",
         options: [
           { letter: "A", text: "Bombeiro" },
           { letter: "B", text: "Castelinho" },
@@ -941,7 +958,6 @@
     if (resetId) {
       const cleanReset = resetId.trim();
       localStorage.removeItem(`canada_attempts_${cleanReset}`);
-      localStorage.removeItem(`canada_active_f5_${cleanReset}`);
       document.getElementById("input-id").value = cleanReset;
       document.getElementById("reset-banner").style.display = "block";
     }
@@ -1027,6 +1043,26 @@
       document.getElementById("side-progress").textContent = `${answeredCount}/10`;
     }
 
+    function loadQuestionImage(num, imgElement, imgContainer) {
+      const candidates = buildImageCandidates(num);
+      let idx = 0;
+
+      function tryNext() {
+        if (idx >= candidates.length) {
+          imgContainer.style.display = "none";
+          return;
+        }
+        const url = candidates[idx++];
+        imgElement.onerror = tryNext;
+        imgElement.onload = function () {
+          imgContainer.style.display = "flex";
+        };
+        imgElement.src = url;
+      }
+
+      tryNext();
+    }
+
     function renderQuestion() {
       updateMatrix();
       const q = questions[currentIdx];
@@ -1037,14 +1073,9 @@
       const imgContainer = document.getElementById("q-image-container");
       const imgElement = document.getElementById("q-img-element");
 
-      if (q.image) {
-        imgElement.onerror = function () {
-          if (q.fallbackImage && imgElement.src !== q.fallbackImage) {
-            imgElement.src = q.fallbackImage;
-          }
-        };
-        imgElement.src = q.image;
-        imgContainer.style.display = "flex";
+      if (q.imageNum) {
+        imgContainer.style.display = "none";
+        loadQuestionImage(q.imageNum, imgElement, imgContainer);
       } else {
         imgContainer.style.display = "none";
       }
